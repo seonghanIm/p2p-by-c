@@ -13,8 +13,6 @@ int main(int argc, char* argv[])
 	struct sockaddr_in serv_addr;
 	char message[30];
 	int str_len;
-
-	printf("%d %s\n", argc, argv[0]);
 	
 	if(argc!=3){
 		printf("Usage : %s <IP> <port>\n", argv[0]);
