@@ -109,7 +109,7 @@ void *handle_clnt(void *arg)
 //int request();
 //{
 //}
-void list(struct Client_info *list)
+void list(struct Client_info *list)   ///탐색 코드
 {
 	struct Client_info *cur = list->next;
 	printf("[");
