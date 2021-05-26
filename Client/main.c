@@ -47,8 +47,6 @@ int main(int argc, char* argv[]) {
 	// 서버로부터 메세지를 받는 코드
 
 
-	fputs("이 프로그램을 실행시킨 후 file 폴더 안 파일은 이동/제거를 하지 마시기 바랍니다.\n", stdout);
-	
 	// 명령어 실행 코드
 	while (1) {
 		fputs("(", stdout);
@@ -87,5 +85,8 @@ void error_handling(char* msg)
 {
 	fputs(msg, stderr);
 	fputc('\n', stderr);
+
+	system("pause");
+
 	exit(1);
 }
