@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 	{
 		int str_len2;
 		clnt_adr_sz = sizeof(clnt_adr);
-		clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_adr, &clnt_adr_sz); // 클라소켓 accept
+		clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_adr,clnt_adr_sz); // 클라소켓 accept
 		//read(clnt_sock, &clnt[clnt_num], sizeof(clnt[clnt_num]));
 
 		pthread_mutex_lock(&mutx); // 뮤텍스 lock 을 통해 다중 접속시 일어날 수 있는 동기화 문제 해결
@@ -106,7 +106,7 @@ void *handle_clnt(void *arg)
 	return NULL;
 }
 
-//int request();
+//int request()
 //{
 //}
 void list(struct Client_info *list)   ///탐색 코드
