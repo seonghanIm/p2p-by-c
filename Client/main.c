@@ -7,7 +7,7 @@
 
 /*
 --------------------
-»ç¿ë¹ı : ./Client <IP> <port> <name>
+ì‚¬ìš©ë²• : ./Client <IP> <port> <name>
 
 --------------------
 */
@@ -19,61 +19,61 @@ int main(int argc, char* argv[]) {
 	char command[64];
 	struct sockaddr_in serv_addr;
 
-	// argv ¼ö °Ë»ç
+	// argv ìˆ˜ ê²€ì‚¬
 	if (argc < 4)
-		error_handling("»ç¿ë¹ı : ./Client <IP> <port> <name>");
+		error_handling("ì‚¬ìš©ë²• : ./Client <IP> <port> <name>");
 
-	// TCP ¿¬°á °úÁ¤
-	// ¼ÒÄÏ »ı¼º
+	// TCP ì—°ê²° ê³¼ì •
+	// ì†Œì¼“ ìƒì„±
 	sock = socket(PF_INET, SOCK_STREAM, 0);
 	if (sock == -1)
-		error_handling("¼ÒÄÏ »ı¼º ¿À·ù.");
+		error_handling("ì†Œì¼“ ìƒì„± ì˜¤ë¥˜.");
 
-	// ¼­¹ö ¿¬°áÀ» À§ÇÑ ±¸Á¶Ã¼ »ı¼º ÈÄ Á¢¼Ó
+	// ì„œë²„ ì—°ê²°ì„ ìœ„í•œ êµ¬ì¡°ì²´ ìƒì„± í›„ ì ‘ì†
 	memset(&serv_addr, 0, sizeof(serv_addr));
 	serv_addr.sin_family = AF_INET;
 	serv_addr.sin_addr.s_addr = inet_addr(argv[1]);
 	serv_addr.sin_port = htons(atoi(argv[2]));
 
 	if (connect(sock, (struct sockaddr*) & serv_addr, sizeof(serv_addr)) == -1)
-		error_handling("Á¢¼Ó ¿À·ù. ¼­¹ö ÁÖ¼Ò ¶Ç´Â Æ÷Æ®¸¦ Á¤È®È÷ ÀÔ·ÂÇß´ÂÁö È®ÀÎÇØÁÖ¼¼¿ä.");
+		error_handling("ì ‘ì† ì˜¤ë¥˜. ì„œë²„ ì£¼ì†Œ ë˜ëŠ” í¬íŠ¸ë¥¼ ì •í™•íˆ ì…ë ¥í–ˆëŠ”ì§€ í™•ì¸í•´ì£¼ì„¸ìš”.");
 	
-	// ÇÊ¿äÇÑ Á¤º¸¸¦ ¼Û¼ö½ÅÇÏ´Â ÄÚµå
+	// í•„ìš”í•œ ì •ë³´ë¥¼ ì†¡ìˆ˜ì‹ í•˜ëŠ” ì½”ë“œ
 	strcpy(name, argv[3]);
 
-	// ¼­¹ö·ÎºÎÅÍ ¸Ş¼¼Áö¸¦ ¹Ş´Â ÄÚµå
+	// ì„œë²„ë¡œë¶€í„° ë©”ì„¸ì§€ë¥¼ ë°›ëŠ” ì½”ë“œ
 
 
-	// ¸í·É¾î ½ÇÇà ÄÚµå
+	// ëª…ë ¹ì–´ ì‹¤í–‰ ì½”ë“œ
 	while (1) {
 		fputs("[", stdout);
 		fputs(name, stdout);
 		fputs("]>", stdout);
 
 		scanf("%s", command);
-		// ¹ØºÎºĞ ¹Ù²ã¾ß ÇÔ
-		if (strcmp("request", command)) {	// request -> ¼­¹ö¿¡°Ô int 1 À» Àü´Ş.
+		// ë°‘ë¶€ë¶„ ë°”ê¿”ì•¼ í•¨
+		if (strcmp("request", command)) {	// request -> ì„œë²„ì—ê²Œ int 1 ì„ ì „ë‹¬.
 			
 		} 
 
-		else if (strcmp("list", command)) { // list -> ¼­¹ö¿¡°Ô int 2 ¸¦ Àü´Ş.
+		else if (strcmp("list", command)) { // list -> ì„œë²„ì—ê²Œ int 2 ë¥¼ ì „ë‹¬.
 
 		}
 
 		else if (strcmp("help", command)) {
-			fputs("<>´Â ÇÊ¼ö·Î ÀÔ·ÂÇØ¾ß ÇÏ°í, ()´Â ¼±ÅÃ¿¡ µû¶ó ÀÔ·ÂÇÒ ¼ö ÀÖ½À´Ï´Ù.\n", stdout);
-			fputs("request <À¯Àú ÀÌ¸§> <ÆÄÀÏ³ëµå> : ÇØ´ç À¯Àú·ÎºÎÅÍ Æ¯Á¤ ÆÄÀÏÀ» ¿äÃ»ÇÕ´Ï´Ù. \n", stdout);
-			fputs("list (À¯Àú ÀÌ¸§) : ÇØ´ç À¯Àú°¡ °¡Áø ÆÄÀÏ ÀÌ¸§À» ¿­¶÷ÇÕ´Ï´Ù. ", stdout);
-			fputs("À¯Àú ÀÌ¸§ÀÌ ¾øÀ» °æ¿ì Á¢¼ÓÇÑ ¸ğµç À¯ÀúÀÇ ÀÌ¸§À» ¿­¶÷ÇÕ´Ï´Ù. \n", stdout);
-			fputs("quit : Á¢¼ÓÀ» Á¾·áÇÕ´Ï´Ù.\n", stdout);
+			fputs("<>ëŠ” í•„ìˆ˜ë¡œ ì…ë ¥í•´ì•¼ í•˜ê³ , ()ëŠ” ì„ íƒì— ë”°ë¼ ì…ë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.\n", stdout);
+			fputs("request <ìœ ì € ì´ë¦„> <íŒŒì¼ë…¸ë“œ> : í•´ë‹¹ ìœ ì €ë¡œë¶€í„° íŠ¹ì • íŒŒì¼ì„ ìš”ì²­í•©ë‹ˆë‹¤. \n", stdout);
+			fputs("list (ìœ ì € ì´ë¦„) : í•´ë‹¹ ìœ ì €ê°€ ê°€ì§„ íŒŒì¼ ì´ë¦„ì„ ì—´ëŒí•©ë‹ˆë‹¤. ", stdout);
+			fputs("ìœ ì € ì´ë¦„ì´ ì—†ì„ ê²½ìš° ì ‘ì†í•œ ëª¨ë“  ìœ ì €ì˜ ì´ë¦„ì„ ì—´ëŒí•©ë‹ˆë‹¤. \n", stdout);
+			fputs("quit : ì ‘ì†ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.\n", stdout);
 		}
 		else if (strcmp("quit", command)) {
-			close(sock); // ½ÇÁ¦·Î´Â ¼­¹ö°¡ close
+			close(sock); // ì‹¤ì œë¡œëŠ” ì„œë²„ê°€ close
 			exit(0);
 		}
 
 		else
-			fputs("Á¸ÀçÇÏÁö ¾Ê´Â ¸í·É¾îÀÔ´Ï´Ù. help¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.", stdout);
+			fputs("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ëª…ë ¹ì–´ì…ë‹ˆë‹¤. helpë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.", stdout);
 	}
 
 	return 0;
