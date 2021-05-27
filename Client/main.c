@@ -15,7 +15,8 @@
 int main(int argc, char* argv[]) {
 	
 	int sock;
-	char command[];
+	char name[32];
+	char command[64];
 	struct sockaddr_in serv_addr;
 
 	// argv 수 검사
@@ -38,22 +39,19 @@ int main(int argc, char* argv[]) {
 		error_handling("접속 오류. 서버 주소 또는 포트를 정확히 입력했는지 확인해주세요.");
 	
 	// 필요한 정보를 송수신하는 코드
-	char name[32] = argv[3];
-	/* 클라에 관한 정보를 문자열로 전송 
-	char name[32];
-	char file_name[100][256];
-	*/
+	strcpy(name, argv[3]);
 
 	// 서버로부터 메세지를 받는 코드
 
 
 	// 명령어 실행 코드
 	while (1) {
-		fputs("(", stdout);
+		fputs("[", stdout);
 		fputs(name, stdout);
-		fputs(")>", stdout);
+		fputs("]>", stdout);
 
-		scanf_s("%s", command);
+		scanf("%s", command);
+		// 밑부분 바꿔야 함
 		if (strcmp("request", command)) {	// request -> 서버에게 int 1 을 전달.
 			
 		} 
@@ -67,9 +65,9 @@ int main(int argc, char* argv[]) {
 			fputs("request <유저 이름> <파일노드> : 해당 유저로부터 특정 파일을 요청합니다. \n", stdout);
 			fputs("list (유저 이름) : 해당 유저가 가진 파일 이름을 열람합니다. ", stdout);
 			fputs("유저 이름이 없을 경우 접속한 모든 유저의 이름을 열람합니다. \n", stdout);
-			fputs("quit : 접속을 종료합니다.");
+			fputs("quit : 접속을 종료합니다.\n", stdout);
 		}
-		else if (strcmp("quit", command) {
+		else if (strcmp("quit", command)) {
 			close(sock); // 실제로는 서버가 close
 			exit(0);
 		}
