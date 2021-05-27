@@ -102,7 +102,7 @@ void *handle_clnt(void *arg)
 	}
 	for (int i = 0; i < 32; i++)
 	{
-		clnt.name = clnt_name;
+		clnt.name[32] = clnt_name[32];
 	}
 	for (int i = 0; i < 256; i++)
 	{
@@ -158,9 +158,9 @@ void list(struct Client_info *list)
 	printf("[");
 	while (cur != NULL)
 	{
-		printf("클라이언트 이름 : %s\n", cur->name);
-		printf("클라이언트 IP 주소 : %d\n", cur->IP);
-		printf("클라이언트 파일인덱스 번호,이름 : %s\n", cur->file_name);
+		send_msg(cur->name, sizeof((*cur->name)));
+		send_msg(cur->IP, sizeof((*cur->IP)));
+		send_msg(cur->name, sizeof((*cur->name)));
 		cur = cur->next;
 	}
 	printf("]");
