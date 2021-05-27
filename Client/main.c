@@ -12,12 +12,14 @@
 --------------------
 */
 
+char file_name[]
+
 int main(int argc, char* argv[]) {
 	
 	int sock;
 	char name[32];
 	char command[64];
-	struct sockaddr_in serv_addr;
+	struct sockaddr_in serv_addr, target_addr; //target_addr은 malloc
 
 	// argv 수 검사
 	if (argc < 4)
@@ -41,6 +43,10 @@ int main(int argc, char* argv[]) {
 	// 필요한 정보를 송수신하는 코드
 	strcpy(name, argv[3]);
 
+	writev(sock, name, sizeof(name)); // 클라이언트 이름 전달
+	
+	// 파일 이름 가져오기
+	
 	// 서버로부터 메세지를 받는 코드
 
 
@@ -79,8 +85,7 @@ int main(int argc, char* argv[]) {
 	return 0;
 }
 
-void error_handling(char* msg)
-{
+void error_handling(char* msg) {
 	fputs(msg, stderr);
 	fputc('\n', stderr);
 
